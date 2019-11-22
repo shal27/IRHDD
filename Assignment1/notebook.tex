@@ -1,0 +1,802 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{FINAL\_Assignment 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{\texorpdfstring{\textbf{Assignment 1: Information Retrieval
+In High Dimensional
+Data}}{Assignment 1: Information Retrieval In High Dimensional Data}}\label{assignment-1-information-retrieval-in-high-dimensional-data}
+
+\subsubsection{Group 7:}\label{group-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Verma, Shivendu (03692438)
+\item
+  Ben Chaabene, Siwar (03687915)
+\item
+  Mahajan, Shalvi (03708741)
+\item
+  Najib, Amna (03689277)
+\item
+  Sharma, Akshat (03708955)
+\end{itemize}
+
+    
+
+    \textbf{Task1:} \textbf{Curse of Dimensionality }
+
+**Let \$ C\_d = \{x \in \mathbb{R}\^{}p , \textbar{} , \{\lVert x
+\rVert\}\_\infty \leq \frac{d}{2}\} \$ denote the p-dimensional
+hypercube of edge length d, centered at the origin. \textbf{ }- Assume
+\(X\) to be uniformly distributed in \(C_1\). Determine d in dependence
+of pand \$ q \in [0, 1]\$, such that \[Pr(X \in C_d) = q\]
+holds.\textbf{ }- Let the components of the p-dimensional random
+variable \(X^p\) be independent and have the standard normal
+distribution. It is known that \(Pr(|X^1| \leq 2.576) = 0.99\). For an
+arbitrary p, determine the probability
+\(Pr({\lVert x \rVert}_\infty > 2.576)\) for any of the components of
+\(X^p\) to lie outside of the interval \([−2.576, 2.576]\). Evaluate the
+value for \(p = 2\), \(p = 3\) and \(p = 500\).**
+
+    \subsubsection{Answer: Task1}\label{answer-task1}
+
+\paragraph{Part 1}\label{part-1}
+
+    X is uniformly distributed in \(C_1\). Considering the lebesgue integral
+and measure \(\lambda\)(\(C_1\)), the probability density function is
+then expressed as follows for every \(x \in \mathbb{R}^p\):
+\[ \begin{split} 
+    f(x) & = \frac{1}{\lambda(C_1)} * \phi_{C_1}(x) \\
+    \lambda(C_1) & = (\frac{1}{2}- \frac{-1}{2})^p \\
+                 & = 1
+    \end{split}  \]
+
+, where \(\phi_{C_1}\) is the indicator function on the set \(C_1\). \$x
+\in \mathbb{R}\^{}p \$ \[ 
+\begin {align*} 
+& Pr(X \in C_d) & = q \\
+\Leftrightarrow \, \,& \int_{C_d} f(x) \, dx & = q \\
+\Leftrightarrow \, \,& (\frac{d}{2}- \frac{-d}{2})^p & = q \\
+\Leftrightarrow \, \,& d^p & = q \\
+\Leftrightarrow \, \,& d & = \sqrt[p]{q}
+\end{align*}
+\]
+
+    \paragraph{Part 2}\label{part-2}
+
+    \[
+\begin{split}
+Pr({\lVert X^p \rVert}_\infty > 2.576) & = 1- Pr({\lVert X^p \rVert}_\infty \leq 2.576) \\
+& = 1- Pr(|X^1| \leq 2.576 \, \, and \, \, |X^2| \leq 2.576 \, \, and \, \, .. \, \, and  \, \, |X^p| \leq 2.576) \\
+& = 1- Pr(|X^1| \leq 2.576) * Pr(|X^2| \leq 2.576) * Pr(|X^3| \leq 2.576) * ... *  Pr(|X^p| \leq 2.576), \, \text{since the components are independent random variables}  \\
+& = 1 -0.99 ^p
+\end{split}
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{c+c1}{\PYZsh{} For p = 2}
+        \PY{n}{Pr\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mf}{0.99}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability value for p=2 }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{Pr\PYZus{}2}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} For p = 3}
+        \PY{n}{Pr\PYZus{}3} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mf}{0.99}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability value for p=3 }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{Pr\PYZus{}3}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} For p = 500}
+        \PY{n}{Pr\PYZus{}500} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{l+m+mf}{0.99}\PY{p}{,}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability value for p=500 }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{Pr\PYZus{}500}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The probability value for p=2  0.01990000000000003
+The probability value for p=3  0.029700999999999977
+The probability value for p=500  0.9934295169575854
+
+    \end{Verbatim}
+
+    \textbf{Task 2: {[}10 Points{]}}
+
+\textbf{Provide the PYTHON code to the following tasks (the code needs
+to be commented properly):}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Sample 100 uniformly distributed random vectors from the box
+  \([-1,1]^d\) for d=2}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{decimal} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{statistics}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{timeit}
+        
+        \PY{c+c1}{\PYZsh{}Function to sample (no\PYZus{}vec,dim) dimensional uniformly distributed random vectors between [\PYZhy{}1,1]}
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}rv}\PY{p}{(}\PY{n}{no\PYZus{}vec}\PY{p}{,} \PY{n}{dim}\PY{p}{)}\PY{p}{:} 
+            \PY{n}{rv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{p}{(}\PY{n}{no\PYZus{}vec}\PY{p}{,}\PY{n}{dim}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{rv}
+        
+        \PY{c+c1}{\PYZsh{}Mean Minimum angle to other vectors for 100 vectors}
+        \PY{n}{dist}\PY{o}{=}\PY{n}{generate\PYZus{}rv}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{100 uniformly distributed random vectors:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100 uniformly distributed random vectors:
+[[-0.06971302  0.13133017]
+ [ 0.64713025 -0.16409291]
+ [ 0.43900646 -0.78895346]
+ [-0.17159051  0.77990679]
+ [-0.99906441 -0.01821633]
+ [-0.95923275  0.61621158]
+ [ 0.24470129  0.02614271]
+ [-0.75209462  0.35326244]
+ [ 0.76962764 -0.9471209 ]
+ [ 0.7211867   0.01367141]
+ [-0.8886856  -0.89467015]
+ [-0.10398226 -0.82012708]
+ [ 0.86484066  0.32991388]
+ [-0.57684974  0.83989343]
+ [-0.52582053  0.37611154]
+ [ 0.50466665  0.71564939]
+ [-0.82666635 -0.43747929]
+ [ 0.94830878  0.83159537]
+ [ 0.37776001  0.87628871]
+ [-0.5267882  -0.36526441]
+ [-0.74405449 -0.5898477 ]
+ [-0.29219969  0.33508303]
+ [ 0.74452436  0.14601904]
+ [ 0.9752091   0.53170654]
+ [ 0.33353369  0.25615258]
+ [ 0.74353181 -0.15708582]
+ [ 0.37185538  0.76885845]
+ [ 0.24612533 -0.81707829]
+ [-0.53628264 -0.90234315]
+ [ 0.32292899 -0.96240896]
+ [ 0.52874148  0.59207149]
+ [ 0.5321894  -0.14266849]
+ [-0.84513663 -0.23688465]
+ [-0.10998966 -0.52032042]
+ [-0.09098417  0.58930172]
+ [-0.94915444 -0.05644647]
+ [-0.62532787  0.53307772]
+ [-0.62150864  0.11049048]
+ [-0.64596585 -0.53295613]
+ [-0.05929669 -0.98745413]
+ [-0.10144154 -0.54736273]
+ [-0.23680188  0.6424948 ]
+ [ 0.52232015  0.01136041]
+ [ 0.66206601 -0.4049458 ]
+ [-0.65013209  0.86184243]
+ [ 0.87997187 -0.32985814]
+ [-0.40989448  0.64151205]
+ [ 0.50074091 -0.32042057]
+ [ 0.20095639 -0.1938596 ]
+ [-0.7117915  -0.34435213]
+ [ 0.90340883 -0.52588248]
+ [-0.53148777  0.24140702]
+ [ 0.72762018  0.62214022]
+ [-0.28892657 -0.20542437]
+ [ 0.98033505 -0.28068187]
+ [-0.6977574   0.89963349]
+ [-0.25370041 -0.67687043]
+ [-0.07643233 -0.41448995]
+ [ 0.00318403 -0.97697299]
+ [-0.98308802  0.76087009]
+ [ 0.6668667   0.43493494]
+ [-0.56961851 -0.10999965]
+ [-0.49410897 -0.53256992]
+ [-0.68883968  0.08408443]
+ [ 0.87830292 -0.98271065]
+ [-0.77911295 -0.8226728 ]
+ [-0.29341665  0.95220903]
+ [ 0.07697369  0.10411203]
+ [-0.9938065   0.46824516]
+ [ 0.96827216  0.64785014]
+ [ 0.45249035 -0.5544855 ]
+ [-0.11058033  0.47757059]
+ [-0.48828216 -0.75451357]
+ [ 0.21990098 -0.96542262]
+ [-0.00168193 -0.13690347]
+ [ 0.36748865  0.98252351]
+ [-0.96731974 -0.80459497]
+ [ 0.40026784  0.51428603]
+ [-0.63329079  0.80854259]
+ [ 0.95327081  0.31408423]
+ [-0.51170676  0.00182008]
+ [ 0.86571086 -0.13517095]
+ [ 0.5129557  -0.18009028]
+ [-0.02864802  0.5287976 ]
+ [ 0.29059842 -0.45792926]
+ [-0.55473063 -0.6289338 ]
+ [ 0.55448829  0.57542502]
+ [-0.20027503 -0.02465741]
+ [-0.04842558  0.28482339]
+ [-0.03916781  0.31493276]
+ [ 0.44369396  0.53682299]
+ [-0.3687567   0.31404183]
+ [-0.87531362 -0.47786638]
+ [ 0.30405072 -0.39152984]
+ [-0.37310975  0.74402974]
+ [ 0.06964117  0.31602724]
+ [-0.28146633  0.03592157]
+ [-0.51063374 -0.73045261]
+ [-0.11244028  0.49799575]
+ [-0.88783962  0.05468154]]
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{For each of the 100 vectors determine the minimum angle to all
+  other vectors. Then compute the average of these minimum angles. Note
+  that for two vectors x, y the cosine of the angle between the two
+  vectors is defined as} \[
+  \begin{equation}
+  \cos(\angle (x,y))=\frac{\langle x,y\rangle}{ \| x \| \| y\|}
+  \end{equation}
+  \]
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Function to caclucate angles between vectors}
+        \PY{k}{def} \PY{n+nf}{cos\PYZus{}sim}\PY{p}{(}\PY{n}{v1}\PY{p}{,} \PY{n}{v2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cos}\PY{o}{=}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{v1}\PY{p}{,}\PY{n}{v2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{v1}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{v2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{angle\PYZus{}rad}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arccos}\PY{p}{(}\PY{n}{cos}\PY{p}{)}
+            \PY{n}{angle\PYZus{}deg}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{rad2deg}\PY{p}{(}\PY{n}{angle\PYZus{}rad}\PY{p}{)}
+            \PY{k}{return} \PY{n}{angle\PYZus{}deg}
+        
+        \PY{c+c1}{\PYZsh{}Function for Mean of minimum angles}
+        \PY{k}{def} \PY{n+nf}{mean\PYZus{}min\PYZus{}angle}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{)}\PY{p}{:}
+            \PY{n}{res}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+            \PY{n}{mat}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+            \PY{n}{mn}\PY{o}{=}\PY{n+nb}{float}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}Calculate angles with all vectors}
+                    \PY{k}{if}\PY{p}{(}\PY{n}{i}\PY{o}{!=}\PY{n}{j}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n}{cos\PYZus{}sim}\PY{p}{(}\PY{n}{rand\PYZus{}distribution}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{rand\PYZus{}distribution}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n}{mat}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+                \PY{c+c1}{\PYZsh{}Compile minimum angles from all vectors}
+                \PY{n}{res}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{mat}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}Mean of minimum angles}
+            \PY{k}{return} \PY{n}{statistics}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{res}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Minimum angles of 100 uniformly distributed random vectors: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{mean\PYZus{}min\PYZus{}angle}\PY{p}{(}\PY{n}{dist}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean Minimum angles of 100 uniformly distributed random vectors:  1.7991970774197645
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Repeat the above for dimensions d = 1,....,1000 and use the
+  results to plot the average minimum angle against the dimension.}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Function to Plot For min angles}
+        \PY{k}{def} \PY{n+nf}{plotMinAngle}\PY{p}{(}\PY{n}{no\PYZus{}vec}\PY{p}{,} \PY{n}{dim}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Minimum Similarity for }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ Vectors and }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ Dimensions}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{no\PYZus{}vec}\PY{p}{,}\PY{n}{dim}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimensions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of minimum angle similarity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+            \PY{n}{plot\PYZus{}arr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{}code\PYZus{}to\PYZus{}test=\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{dim}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if}\PY{p}{(}\PY{n}{i}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{plot\PYZus{}arr}\PY{o}{=}\PY{n}{mean\PYZus{}min\PYZus{}angle}\PY{p}{(}\PY{n}{generate\PYZus{}rv}\PY{p}{(}\PY{n}{no\PYZus{}vec}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{plot\PYZus{}arr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{plot\PYZus{}arr}\PY{p}{,}\PY{n}{mean\PYZus{}min\PYZus{}angle}\PY{p}{(}\PY{n}{generate\PYZus{}rv}\PY{p}{(}\PY{n}{no\PYZus{}vec}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{plot\PYZus{}arr}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+        \PY{n}{plotMinAngle}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Give an interpretation of the result. What conclusions can you
+  draw for 2 randomly sampled vectors in a d-dimensional space?}
+\end{itemize}
+
+    The curve of 100 Random variables plotted in dimensions form 1 to 1000
+shows that when the dimension 'd' increases, the average minimum angle
+tends to cos 90° or cosine similarity of 0. Which means that as in high
+dimensional space, correlation between the same vectors decreases.
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Does the result change if the sample size increases?}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Increasing number of variables}
+        \PY{n}{plotMinAngle}\PY{p}{(}\PY{l+m+mi}{300}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    No, the result does not change as the number of samples increases, and
+the above result of decreasing cosine similarity with increasing
+dimensions still holds true.
+
+    \textbf{Statistical Decision Making} \textbf{Task 3: {[}10 Points{]}}
+
+\textbf{Answer the following questions. All answers must be justified.}
+
+Figure 1:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+x / y & 1 & 2 & 3\tabularnewline
+\midrule
+\endhead
+1 & 0.02 & 0.26 & 0.13\tabularnewline
+2 & 0.4 & 0.14 & 0.05\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{The numbers in Figure 1 show the probability of the respective
+  event to happen (e.g. the probability for the event \(X=1\) and
+  \(Y=1\) is \(0.02\)). Is this table a probability table? If so, why?}
+\end{itemize}
+
+    The table will be a probability table only if the sum of the individual
+probabilities of all events is 1.
+
+\[
+\because\,\; \sum_Y \sum_X p_{X, Y}(x, y) = 0.4+0.14+0.05+0.02+0.26+0.13 = 1
+\] Also, \[
+\because\,\; p_{X, Y}(x, y) \geq 0 \quad \forall\; (x, y) \in \{\mathbf{X} \times \mathbf{Y}\}
+\] Hence, Figure 1 is a probability table.
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Based on Figure 1 give the conditional expectation
+  \(\mathbb{E}_{Y \mid X=2}[Y]\) and the probability of the event
+  \(X=1\) under the condition that \(Y=3\).}
+\end{itemize}
+
+    Conditional expectation \(\mathbb{E}_{Y \mid X=2}[Y]\): \[
+\begin{align*}
+& \because \,\; \mathbb{E}_{Y \mid X=2}[Y] = \sum_Y Y\;P(Y \mid X=2) \\
+& \Rightarrow \mathbb{E}_{Y \mid X=2}[Y] = \sum_Y Y\;\frac{P(Y \cap X=2)}{P(X=2)} \\
+& \Rightarrow \mathbb{E}_{Y \mid X=2}[Y] = \frac{1}{P(X=2)}\; \sum_Y Y\; P(Y \cap X=2) \\
+& \Rightarrow \mathbb{E}_{Y \mid X=2}[Y] = \frac{1}{\sum_Y P(X=2, Y)}\sum_Y Y\;P(Y \cap X=2) \\
+& \Rightarrow \mathbb{E}_{Y \mid X=2}[Y] = \frac{1}{0.4+0.14+0.05}(1\times 0.4 + 2\times 0.14 + 3\times 0.05) \\
+& \therefore \,\; \mathbb{E}_{Y \mid X=2}[Y] = \frac{0.83}{0.59} \approx 1.4068
+\end{align*}
+\]
+
+Conditional probability \(P(X=1 \mid Y=3)\): \[
+\begin{align*}
+& \because \,\; P(X=1 \mid Y=3) = \frac{P(X=1 \cap Y=3)}{P(Y=3)} \\
+& \Rightarrow P(X=1 \mid Y=3) = \frac{P(X=1 \cap Y=3)}{\sum_X P(X, Y=3)} \\
+& \Rightarrow P(X=1 \mid Y=3) = \frac{0.13}{0.13 + 0.05} \\
+& \therefore \,\; P(X=1 \mid Y=3) = \frac{0.13}{0.18} \approx 0.722
+\end{align*}
+\]
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Is the function p(x, y) given by} \[
+  p(x, y) = \begin{cases}
+  1 & \quad \text{for } 0\leq x\leq 1\text{, } 0\leq y\leq \frac{1}{2} \\
+  0 & \quad \text{otherwise} \end{cases}
+  \] \textbf{a joint density function for two random variables?}
+\end{itemize}
+
+    For the function to be joint density function for two random variables,
+\[
+\int_y \int_x p(x, y) =1
+\] Let's check this for \(p(x, y)\) \[
+\because \int_y \int_x p(x, y)\; \mathrm{d}x \mathrm{d}y = \int_0^{1/2} \int_0^1 1\; \mathrm{d}x \mathrm{d}y = \int_0^{1/2} x\mid_0^1\; \mathrm{d}y = \int_0^{1/2} 1\; \mathrm{d}y = y\mid_0^{1/2} = \frac{1}{2} \neq 1
+\] Therefore, \(p(x, y)\) is not a density function.
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{For two random variables X and Y the joint density function is
+  given by \[
+  p(x, y) = \begin{cases}
+  2\mathit{e}^{-(x+y)} & \quad \text{for } 0\leq x\leq y\text{, } 0\leq y \\
+  0 & \quad \text{otherwise.} \end{cases}
+  \] }What are the marginal density functions for X and Y
+  respectively?**
+\end{itemize}
+
+    Marginal density function for \(\mathbf{X}\) : \[
+\begin{align*}
+& \because \,\; p(x) = \int_x^\infty p(x, y)\; \mathrm{d}y\\
+& \Rightarrow p(x) = \lim_{u\to\infty} \int_x^u p(x, y)\; \mathrm{d}y\\
+& \Rightarrow p(x) = \lim_{u\to\infty} \int_x^u 2e^{-(x+y)}\; \mathrm{d}y\\
+& \Rightarrow p(x) = 2e^{-x} \lim_{u\to\infty} \int_x^u e^{-y}\; \mathrm{d}y\\
+& \Rightarrow p(x) = 2e^{-x} \lim_{u\to\infty} \big[-e^{-y}\big]_{y=x}^{y=u}\\
+& \Rightarrow p(x) = 2e^{-x} \lim_{u\to\infty} \big[-e^{-u}+e^{-x}\big]\\
+& \Rightarrow p(x) = 2e^{-x} \big[0+e^{-x}\big]\\
+& \therefore \,\; p(x) = 2e^{-2x}\\
+\end{align*}
+\] Using the same for \(\mathbf{Y}\) : \[
+\begin{align*}
+& \because \,\; p(y) = \int_0^y p(x, y)\; \mathrm{d}x\\
+& \Rightarrow p(y) = \int_0^y 2e^{-(x+y)}\; \mathrm{d}x\\
+& \Rightarrow p(y) = 2e^{-y} \int_0^y e^{-x}\; \mathrm{d}x\\
+& \Rightarrow p(y) = 2e^{-y} \big[ -e^{-x} \big]_{x=0}^{x=y}\\
+& \Rightarrow p(y) = 2e^{-y} \big[ -e^{-y} + e^0 \big]\\
+& \therefore \,\; p(y) = 2e^{-y} \big( 1 - e^{-y} \big)\\
+\end{align*}
+\]
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Let the joint density function of two random variables X and Y
+  be given by} \[
+  p(x, y) = \begin{cases}
+  \frac{1}{15}(2x+4y) & \quad \text{for } 0\leq x\leq 3\text{, } 0\leq y\leq 1 \\
+  0 & \quad \text{otherwise.} \end{cases}
+  \] \textbf{Determine the probability for \(X\leq 2\) under the
+  condition that \(Y = \frac{1}{2}\).}
+\end{itemize}
+
+    \[
+\begin{align*}
+& \because \,\; p(y) = \int_x p(x, y)\; \mathrm{d}x\\
+& \Rightarrow p(y) = \int_0^3 p(x, y)\; \mathrm{d}x\\
+& \Rightarrow p(y) = \int_0^3 \frac{1}{15}(2x+4y)\; \mathrm{d}x\\
+& \Rightarrow p(y) = \frac{1}{15}\; (x^2+4yx)\mid_{x=0}^3\\
+& \therefore \,\; p(y) = \frac{1}{5}\; (4y+3)\\
+\end{align*}
+\] Therefore, \[
+\begin{align*}
+& \because \,\; P(X\leq 2\mid Y=\frac{1}{2}) = \int_0^2 \frac{p(x, y)}{p(y)}\mid_{y=\frac{1}{2}}\; \mathrm{d}x\\
+& \Rightarrow P(X\leq 2\mid Y=\frac{1}{2}) = \int_0^2 \frac{2x+4y}{12y+9}\mid_{y=\frac{1}{2}}\; \mathrm{d}x\\
+& \Rightarrow P(X\leq 2\mid Y=\frac{1}{2}) = \int_0^2 \frac{2x+2}{15}\; \mathrm{d}x\\
+& \Rightarrow P(X\leq 2\mid Y=\frac{1}{2}) = \frac{1}{15}\; (x^2+2x)\mid_0^2\\
+& \therefore \,\; P(X\leq 2\mid Y=\frac{1}{2}) = \frac{8}{15} \approx 0.533
+\end{align*}
+\]
+
+    \textbf{Task 4: {[}3 Points{]}}
+
+\textbf{Show that the covariance matrix C of any random variable
+\(X \in R^p\) is symmetric positive semidefinite, i.e. \(C = C^T\) and
+\$x\^{}TCx \geq \$  0 for any covariance matrix \$C \in R \^{} \{p
+\times p\} \$ and any \(X \in R^p\)}
+
+    The definition of the covariance matrix of a random vector
+\(X \in R^p\), \(m_{x}\) is the mean vector:
+
+\(C = E[(X-X_{m})(X-X_{m})^T]\)
+
+The covariance matrix is symmetric (\(C = C^T\)):
+
+\(C^T = E[(X-X_{m})(X-X_{m})^T]^T = E[((X-X_{m})(X-X_{m})^T)^T] = E[((X-X_{m})^T)^T(X-X_{m})^T] = E[((X-X_{m})(X-X_{m})^T)] = C\)
+
+The covariance matrix is positive semidefinite ( \$ \forall  b
+\in R\^{}p \$ , \(b^T C b \geq 0\)):
+
+\$E{[}{[}(X-X\_\{m\})\^{}T b{]}\^{}2{]} = E{[}{[}(X-X\_\{m\})\^{}T
+b{]}\^{}T{[}(X-X\_\{m\})\^{}T b{]}{]} \geq 0 \$, \$b \in R\^{}p \$
+
+\(\Leftrightarrow\) \(E[b^T (X-X_{m})(X-X_{m})^T b] \geq 0\) , \$b
+\in R\^{}p \$
+
+\(\Leftrightarrow\) \(b^T C b \geq 0\) , \$b \in R\^{}p \$
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
